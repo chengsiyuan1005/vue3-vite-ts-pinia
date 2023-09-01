@@ -1,13 +1,14 @@
 <template>
 	<div class="home">
-		<button>home</button>
-		<button @click="btnToLogin()">to login</button>
+		<el-button type="primary">Home</el-button>
+		<el-button @click="btnToLogin()">to login</el-button>
+		<el-button @click="getNewsList()">news</el-button>
 	</div>
 </template>
 
 <script lang="ts" setup>
-	import {} from '../../request/api';
 	import { useRouter } from 'vue-router';
+	import { newsList } from '../../http/api';
 
 	const router = useRouter();
 
@@ -15,5 +16,15 @@
 		router.push({
 			name: 'login',
 		});
+	};
+
+	const getNewsList = async () => {
+		let res = await newsList({
+			pagenum: 1,
+			pagesize: 20,
+			sort: 'addtime',
+			appkey: '96bc7fa736341beb',
+		});
+		console.log('newsList', res);
 	};
 </script>
