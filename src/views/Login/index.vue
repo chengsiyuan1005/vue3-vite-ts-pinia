@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-	import service from '../../http/index';
+	import service from '../../api/index';
 	import { useRouter } from 'vue-router';
 
 	const router = useRouter();

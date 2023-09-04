@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 	import { useRouter } from 'vue-router';
-	import { newsList } from '../../http/api';
+	import service from '../../api/index';
 
 	const router = useRouter();
 
@@ -19,7 +19,7 @@
 	};
 
 	const getNewsList = async () => {
-		let res = await newsList({
+		let res = await service.newsList({
 			pagenum: 1,
 			pagesize: 20,
 			sort: 'addtime',
