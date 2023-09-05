@@ -4,11 +4,12 @@
 		<div class="password"><span>密码</span><input type="text" /></div>
 		<el-button type="primary" @click="toLogin()">Login</el-button>
 		<button @click="toHome()">home</button>
+		<button @click="getCaptcha()">captcha</button>
 	</div>
 </template>
 
 <script lang="ts" setup>
-	import service from '../../api/index';
+	import {login, captcha} from '../../api/login';
 	import { useRouter } from 'vue-router';
 
 	const router = useRouter();
@@ -23,7 +24,13 @@
 	};
 
 	const toLogin = async () => {
-		let res = await service.login({ username: 'admin', password: '123' });
+		let res = await login();
 		console.log('login', res);
 	};
+
+	const getCaptcha = async () => {
+		let res = await captcha()
+		console.log('captcha', res)
+	}
+
 </script>

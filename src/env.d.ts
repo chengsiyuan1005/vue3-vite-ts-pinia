@@ -6,6 +6,17 @@ declare module "*.vue" {
   export default component;
 }
 
+// 环境变量 Ts 智能提示
+interface ImportMetaEnv {
+  ViTE_APP_TITLE: string;
+  VITE_APP_PORT: string;
+  VITE_APP_BASE_API: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
+
 // 对 vue-router 模块声明
 // declare module 'vue-router'
 
