@@ -18,7 +18,7 @@ interface ImportMeta {
 }
 
 // 对 vue-router 模块声明
-// declare module 'vue-router'
+declare module 'vue-router'
 
 // 对 path 模块声明
 declare module 'path'

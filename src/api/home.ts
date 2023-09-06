@@ -6,5 +6,12 @@ import instance from "../utils/request";
 // export const routes = (): Res<null> => instance.post('/api/v1/routes');
 
 
-export const routes = (): Res<string> => instance.get('api/v1/routes')
+export const routes = (): Res<string> => instance.get('/api/v1/routes')
+
+// 菜单列表
+export const menus = ():Res<string> => instance.get('/api/v1/menus')
+
+// 菜单删除
+
+// 菜单下拉
 

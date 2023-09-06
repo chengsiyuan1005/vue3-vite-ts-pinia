@@ -1,7 +1,12 @@
 import instance from "../utils/request";
 
 // 登录
-export const login = (): Res<string> => instance.post("/api/v1/auth/login?username=admin&password=123456");
+export const login = (data: ReqLogin): Res<string> => instance.post('/VxAppUser/login', data)
 
-// 验证码
-export const captcha = (): Res<string> =>  instance.get("/api/v1/auth/captcha");
+// 忘记密码
+export const forgetPassword = (data: ReqForgetPassword): Res<string> => instance.post('/VxAppUser/retrieve', data)
+
+// 重置密码
+
+// 注册
+export const register = (data: ReqRegister): Res<string> => instance.post('/VxAppUser/register', data)
