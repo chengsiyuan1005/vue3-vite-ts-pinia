@@ -1,4 +1,7 @@
 <template>
+	<div class="mine-tip">
+		<mine-tip></mine-tip>
+	</div>
 	<div class="home">
 		<el-button type="primary">Home</el-button>
 		<el-button @click="btnToLogin()">to login</el-button>
@@ -7,14 +10,8 @@
 
 <script lang="ts" setup>
 	import { useRouter } from 'vue-router';
-	import {userInfo} from '@/api/user'
-	import {getCookie} from '@/utils/cookie'
-
-	onMounted(() => {
-		// 获取用户信息
-		getUserInfo()
-	})
-
+	import MineTip from '@/components/UserTip/index.vue'
+	
 	const router = useRouter();
 
 	const btnToLogin = () => {
@@ -22,14 +19,6 @@
 			name: 'login',
 		});
 	};
-
-	const getUserInfo = async () => {
-		let res = await userInfo(getCookie('userId'))
-		console.log(res)
-	}
-
-	
-	
 	
 </script>
 
