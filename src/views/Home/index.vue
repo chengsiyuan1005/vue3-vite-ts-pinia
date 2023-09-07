@@ -2,14 +2,18 @@
 	<div class="home">
 		<el-button type="primary">Home</el-button>
 		<el-button @click="btnToLogin()">to login</el-button>
-		<el-button @click="getRouterList()">RouterList</el-button>
-		<el-button @click="getMenus()">menu</el-button>
 	</div>
 </template>
 
 <script lang="ts" setup>
 	import { useRouter } from 'vue-router';
-	import {routes, menus} from '../../api/home';
+	import {userInfo} from '@/api/user'
+	import {getCookie} from '@/utils/cookie'
+
+	onMounted(() => {
+		// 获取用户信息
+		getUserInfo()
+	})
 
 	const router = useRouter();
 
@@ -19,14 +23,13 @@
 		});
 	};
 
-	const getRouterList = async () => {
-		let res = await routes()
+	const getUserInfo = async () => {
+		let res = await userInfo(getCookie('userId'))
 		console.log(res)
 	}
 
-	const getMenus = async () => {
-		let res = await menus()
-		console.log('menus: ', res)
-	}
+	
+	
 	
 </script>
+

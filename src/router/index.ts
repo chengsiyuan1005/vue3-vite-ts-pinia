@@ -1,10 +1,12 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
+import { getCookie } from '@/utils/cookie';
+import { ElMessage } from 'element-plus'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'index',
-    component: () => import('../views/Login/index.vue')
+    component: () => import('../views/Home/index.vue')
   },
   {
     path: '/login',
@@ -15,11 +17,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/register',
     name: 'register',
     component: () => import('../views/Login/register.vue')
-  },
-  {
-    path: '/resetPassword',
-    name: 'resetPassword',
-    component: () => import('../views/Login/resetPassword.vue')
   },
   {
     path: '/forgetPassword',
@@ -37,5 +34,25 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+// 前置路由
+router.beforeEach((to: RouterTo, from: RouterFrom, next:any) => {
+  const token = getCookie('token') || ''
+  if (to.name !== 'login' && !token) {
+    ElMessage({
+			showClose: true,
+			message: 'token expire or no token, needs login',
+			center: true,
+		});
+    next({name: 'login'})
+  } else next()
+})
+
+// 后置守卫
+router.afterEach((to: RouterTo, from: RouterFrom) => {
+  //设置跳转路由后页面的标题
+  document.title = to.name
+})
+
 
 export default router

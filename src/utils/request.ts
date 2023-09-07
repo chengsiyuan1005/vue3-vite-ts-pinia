@@ -61,7 +61,7 @@ request.interceptors.response.use(
                 router.push({name: 'login'})
                 break;
         }
-        return Promise.reject(error)
+        return error
     }
 )
 export default request

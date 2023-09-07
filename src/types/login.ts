@@ -38,3 +38,9 @@ interface ItypeAPI<T> {
   config?: object,
   status: number
 }
+
+// 组件传参
+interface IProps {
+  title?: string,
+  data: any
+}

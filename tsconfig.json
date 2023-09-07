@@ -15,17 +15,18 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "preserve",
-		
 
 		/* Linting */
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"paths": {
+			"@/": ["src"],
+			"@/*": ["src/*"]
+		},
 	},
-	"paths": {
-		"@/*": ["src/*"]
-	},
+	
 	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-	"references": [{ "path": "./tsconfig.node.json" }],
+	"references": [{ "path": "./tsconfig.node.json" }]
 }
