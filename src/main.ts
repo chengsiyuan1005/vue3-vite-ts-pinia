@@ -4,11 +4,12 @@ import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+// elements-plus/icon
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 import './style.css'
 import App from './App.vue'
 
-// // cookie
-// import VueCookies from 'vue-cookies'
 
 // routes
 import router from './router/index'
@@ -18,7 +19,16 @@ import {createPinia} from 'pinia'
 const pinia = createPinia
 
 const app = createApp(App)
-// app.use(VueCookies)
+
+// 挂载IMG常量 - 头像
+app.config.globalProperties.$AVATAR_BASE_URL = 'https://bms.i-hc.cn/wxapp/upload/'
+// 挂载IMG常量 - 图片资源
+app.config.globalProperties.$IMG_BASE_URL = 'https://bms.i-hc.cn/wxapp'
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
+
 app.use(router)
 app.use(ElementPlus)
 app.use(pinia)

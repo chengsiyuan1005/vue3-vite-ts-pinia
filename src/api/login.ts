@@ -1,4 +1,4 @@
-import instance from "@/utils/request";
+import instance from "../utils/request";
 
 // 登录
 export const login = (data: ReqLogin): Res<string> => instance.post('/VxAppUser/login', data)

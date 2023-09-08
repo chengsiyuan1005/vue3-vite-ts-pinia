@@ -3,22 +3,18 @@
 		<mine-tip></mine-tip>
 	</div>
 	<div class="home">
-		<el-button type="primary">Home</el-button>
-		<el-button @click="btnToLogin()">to login</el-button>
+		
 	</div>
 </template>
 
 <script lang="ts" setup>
-	import { useRouter } from 'vue-router';
-	import MineTip from '@/components/UserTip/index.vue'
-	
-	const router = useRouter();
-
-	const btnToLogin = () => {
-		router.push({
-			name: 'login',
-		});
-	};
-	
+	import MineTip from '@/components/UserTip/index.vue';
 </script>
 
+<style lang="scss" scoped>
+	.mine-tip {
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+</style>

@@ -1,26 +1,28 @@
 <template>
 	<div class="login">
-		<div class="login-form">
-			<el-form
-				:label-position="labelPosition"
-				:model="ruleForm"
-				style="max-width: 24rem"
-				size="large"
-				:rules="loginRule"
-			>
-				<el-form-item prop="account">
-					<el-input v-model="ruleForm.account" placeholder="Account" style="width: 24rem" />
-				</el-form-item>
-				<el-form-item prop="password">
-					<el-input v-model="ruleForm.password" placeholder="Password" type="password" />
-				</el-form-item>
-			</el-form>
-		</div>
-		<div class="submit">
-			<el-button color="#1d78b7" @click="submit()">Login</el-button>
-		</div>
-		<div class="login-button">
-			<login-button />
+		<div>
+			<div class="login-form">
+				<el-form
+					:label-position="labelPosition"
+					:model="ruleForm"
+					style="max-width: 24rem"
+					size="large"
+					:rules="loginRule"
+				>
+					<el-form-item prop="account">
+						<el-input v-model="ruleForm.account" placeholder="Account" style="width: 24rem" />
+					</el-form-item>
+					<el-form-item prop="password">
+						<el-input v-model="ruleForm.password" placeholder="Password" type="password" />
+					</el-form-item>
+				</el-form>
+			</div>
+			<div class="submit">
+				<el-button color="#1d78b7" @click="submit()">Login</el-button>
+			</div>
+			<div class="login-b utton">
+				<login-button />
+			</div>
 		</div>
 	</div>
 </template>
@@ -31,9 +33,9 @@
 	import { setCookie } from '@/utils/cookie';
 	import LoginButton from '@/components/LoginButton/index.vue';
 	import type { FormRules } from 'element-plus';
-	import {ElMessage} from 'element-plus'
-	import 'element-plus/theme-chalk/index.css'
- 
+	import { ElMessage } from 'element-plus';
+	import 'element-plus/theme-chalk/index.css';
+
 	const router = useRouter();
 
 	const labelPosition = ref('left');
@@ -42,8 +44,6 @@
 		account: '',
 		password: '',
 	});
-
-	
 
 	const isLoginReg = ref(false);
 
@@ -80,15 +80,15 @@
 			// set cookie
 			setCookie('token', res.data.token, 7);
 			// set user id
-			setCookie('userId', res.data.id, 7)
+			setCookie('userId', res.data.id, 7);
 		} else {
 			// 登录错误提示
-			console.log('first')
-			openCenter('account or password error!')
+			console.log('first');
+			openCenter('account or password error!');
 		}
 	};
 
-	const openCenter = (val:string) => {
+	const openCenter = (val: string) => {
 		ElMessage({
 			showClose: true,
 			message: val,
@@ -98,18 +98,25 @@
 </script>
 
 <style lang="scss" scoped>
-	.login-form {
-		width: 24rem;
+	.login {
+		display: flex;
+		justify-content: center;
+		height: 100vh;
+		align-items: center;
 
-		input {
+		.login-form {
 			width: 24rem;
+
+			input {
+				width: 24rem;
+			}
 		}
-	}
-	.submit {
-		width: 24rem;
-
-		button {
+		.submit {
 			width: 24rem;
+
+			button {
+				width: 24rem;
+			}
 		}
 	}
 </style>
