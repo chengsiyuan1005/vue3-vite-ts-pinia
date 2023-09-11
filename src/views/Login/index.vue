@@ -83,7 +83,6 @@
 			setCookie('userId', res.data.id, 7);
 		} else {
 			// 登录错误提示
-			console.log('first');
 			openCenter('account or password error!');
 		}
 	};

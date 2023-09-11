@@ -23,7 +23,7 @@ request.interceptors.request.use(
         let token = getCookie('token')
         if (token) {
                 // 添加请求头
-                config.headers["Authorization"]="Bearer "+ token
+                config.headers["Authorization"] = token
         }
         // post
         if (config.method === 'post') {

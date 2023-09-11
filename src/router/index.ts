@@ -26,7 +26,15 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/Home/index.vue')
+    redirect: '/home/charts',
+    component: () => import('../views/Home/index.vue'),
+    children: [
+      {
+        path: 'charts',
+        name: 'charts',
+        component: () => import('../views/Home/charts.vue')
+      }
+    ]
   },
   {
     path: '/mine',

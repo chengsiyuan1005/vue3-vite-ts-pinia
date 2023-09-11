@@ -4,7 +4,7 @@
 			<div class="left">
 				<img src="../../assets/userTip/menu.svg" alt="" class="menu" @click="isOpenMenu()" />
 				<img src="../../assets/logo256.svg" alt="" class="logo" />
-				<span class="title">home</span>
+				<span class="title">{{ currentPath }}</span>
 			</div>
 			<div class="right">
 				<div class="search">
@@ -61,6 +61,9 @@
 
 	const router = useRouter();
 
+	// 当前路由名称
+	const currentPath = router.currentRoute.value.name
+
 	// 输入框
 	const inputVal = ref<string>('');
 	const selectTitle = ref<string>('');
@@ -94,7 +97,7 @@
 
 	const getUserInfo = async () => {
 		let res = await userInfo(getCookie('userId'));
-		console.log(res);
+		// console.log(res);
 		avatarUser.value = {
 			account: res.data.account,
 			tel: res.data.tel,

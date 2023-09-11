@@ -29,10 +29,6 @@
   // 页面list
 	const pageList = ref(['home', 'charts', 'mine', 'sit']);
 
-	onMounted(() => {
-		console.log(pageList.value);
-	});
-
   // 页面跳转
   const toUrl = (url:string) => {
     router.push(url)
