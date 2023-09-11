@@ -21,7 +21,7 @@ vue3 + Vite + Ts + Pinia
  + UserTip:
  ```markdown
  
-	component backgroundColor ##F6F8FA
+	component backgroundColor #F6F8FA
 	button backgroundColor #EAEDF1
 	
 

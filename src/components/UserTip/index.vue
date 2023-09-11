@@ -1,8 +1,8 @@
 <template>
-	<div class="info" >
+	<div class="info">
 		<div class="info-inner">
 			<div class="left">
-				<img src="../../assets/UserTip/menu.svg" alt="" class="menu" />
+				<img src="../../assets/userTip/menu.svg" alt="" class="menu" @click="isOpenMenu()" />
 				<img src="../../assets/logo256.svg" alt="" class="logo" />
 				<span class="title">home</span>
 			</div>
@@ -21,11 +21,33 @@
 						</template>
 					</el-input>
 				</div>
-				<el-avatar shape="circle" :size="50" :src="avatarUser.avatarUrl" class="avatar" @click="toUrl('/mine')"/>
-				<span class="sit" @click="toUrl('/sit')"><img src="@/assets/UserTip/sit.svg" alt=""></span>
-				<span class="add"  @click="toUrl('/more')"><img src="@/assets/UserTip/more.svg" alt=""></span>
+				<el-avatar
+					shape="circle"
+					:size="50"
+					:src="avatarUser.avatarUrl"
+					class="avatar"
+					@click="toUrl('/mine')"
+				/>
+				<span class="sit" @click="toUrl('/sit')"
+					><img src="@/assets/common/sit.svg" alt=""
+				/></span>
+				<span class="add" @click="toUrl('/more')"
+					><img src="@/assets/userTip/more.svg" alt=""
+				/></span>
 			</div>
 		</div>
+		<el-drawer
+			v-model="menuDrawer"
+			size="320px"
+			direction="ltr"
+			:with-header="false"
+			style="border-radius: 0 12px 12px 0;"
+		>
+			<menu-list />
+			<div class="close-menu" @click="handleClose()">
+				<img src="@/assets/userTip/closeMenu.svg" alt="" />
+			</div>
+		</el-drawer>
 	</div>
 </template>
 
@@ -35,12 +57,16 @@
 	import { getCookie } from '@/utils/cookie';
 	import { userInfo } from '@/api/user';
 	import { useRouter } from 'vue-router';
+	import MenuList from '@/components/MenuList/index.vue';
 
 	const router = useRouter();
 
 	// 输入框
 	const inputVal = ref<string>('');
 	const selectTitle = ref<string>('');
+
+	// 菜单抽屉
+	const menuDrawer = ref<boolean>(false);
 
 	// 个人信息
 	const AVATAR_BASE_URL = ref<string>(
@@ -58,6 +84,14 @@
 		getUserInfo();
 	});
 
+	const isOpenMenu = () => {
+		menuDrawer.value = true;
+	};
+
+	const handleClose = () => {
+		menuDrawer.value = false;
+	};
+
 	const getUserInfo = async () => {
 		let res = await userInfo(getCookie('userId'));
 		console.log(res);
@@ -69,11 +103,9 @@
 		};
 	};
 
-
-	const toUrl = (path:string) => {
+	const toUrl = (path: string) => {
 		router.push(`${path}`);
 	};
-
 </script>
 
 <style lang="scss" scoped>
@@ -81,7 +113,7 @@
 		width: 100vw;
 		height: 64px;
 		box-shadow: 0 0.075rem 0.075rem 0 rgba(0, 0, 0, 0.1);
-		background-color: #F6F8FA;
+		background-color: #f6f8fa;
 
 		.info-inner {
 			height: 32px;
@@ -119,7 +151,7 @@
 					border-radius: 8px;
 				}
 				.title:hover {
-					background-color: #EAEDF1;
+					background-color: #eaedf1;
 				}
 			}
 
@@ -147,13 +179,14 @@
 					cursor: pointer;
 				}
 
-				.sit, .add {
+				.sit,
+				.add {
 					box-sizing: border-box;
 					border: 1px solid #ccc;
 					height: 28px;
 					border-radius: 7px;
 					display: flex;
-					align-items:center;
+					align-items: center;
 					cursor: pointer;
 
 					img {
@@ -162,14 +195,14 @@
 					}
 				}
 
-				.sit:hover, .add:hover {
-					background-color: #EAEDF1;
+				.sit:hover,
+				.add:hover {
+					background-color: #eaedf1;
 				}
 
 				.sit {
 					margin-right: 12px;
 				}
-				
 
 				@keyframes avatar {
 					0% {
@@ -183,6 +216,27 @@
 					}
 				}
 			}
+		}
+
+		.close-menu {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			width: 32px;
+			height: 32px;
+			border-radius: 8px;
+			cursor: pointer;
+			background-color: #f6f8fa;
+
+			img {
+				width: 9px;
+				height: 9px;
+				padding: 10.5px;
+			}
+		}
+
+		.close-menu:hover {
+			background-color: #eaedf1;
 		}
 	}
 </style>
