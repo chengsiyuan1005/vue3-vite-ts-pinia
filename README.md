@@ -15,3 +15,15 @@ vue3 + Vite + Ts + Pinia
 	- 信息列表
 ```
 
+
++ ui design
+
+ + UserTip:
+ ```markdown
+ 
+	component backgroundColor ##F6F8FA
+	button backgroundColor #EAEDF1
+	
+
+ ```
+ 
