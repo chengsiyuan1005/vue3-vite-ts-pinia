@@ -1,5 +1,5 @@
 <template>
-  <div class="more">
-    
+  <div>
+    other
   </div>
 </template>

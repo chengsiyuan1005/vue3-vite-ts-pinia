@@ -12,9 +12,8 @@
 </script>
 
 <style lang="scss" scoped>
-	.mine-tip {
-		position: fixed;
-		top: 0;
-		left: 0;
+	.home {
+		width: 100vw;
+		height: calc(100vh - 64px);
 	}
 </style>

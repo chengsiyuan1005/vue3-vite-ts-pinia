@@ -18,7 +18,12 @@ import router from './router/index'
 import {createPinia} from 'pinia'
 const pinia = createPinia
 
+// echarts
+import echarts from './utils/echarts'
+
 const app = createApp(App)
+
+app.config.globalProperties.$echarts = echarts // 挂载echarts
 
 // 挂载IMG常量 - 头像
 app.config.globalProperties.$AVATAR_BASE_URL = 'https://bms.i-hc.cn/wxapp/upload/'

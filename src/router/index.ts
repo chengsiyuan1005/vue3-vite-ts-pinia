@@ -33,23 +33,23 @@ const routes: Array<RouteRecordRaw> = [
         path: 'charts',
         name: 'charts',
         component: () => import('../views/Home/charts.vue')
-      }
+      },
+      {
+        path: 'sit',
+        name: 'sit',
+        component: () => import('../views/Home/sit.vue')
+      },
+      {
+        path: 'more',
+        name: 'more',
+        component: () => import('../views/Home/more.vue')
+      },
     ]
   },
   {
     path: '/mine',
     name: 'mine',
     component: () => import('../views/Mine/index.vue')
-  },
-  {
-    path: '/sit',
-    name: 'sit',
-    component: () => import('../views/Sit/index.vue')
-  },
-  {
-    path: '/more',
-    name: 'more',
-    component: () => import('../views/More/index.vue')
   },
 ]
 

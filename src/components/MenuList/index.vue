@@ -5,7 +5,7 @@
 				<img src="@/assets/logo128.svg" alt="" />
 			</div>
 			<ul class="main-page">
-				<li class="list-one" v-for="item in pageList" :key="item" @click="toUrl(`/${item}`)">
+				<li class="list-one" v-for="item in pageList" :key="item" @click="toUrl(item)">
 					<img :src="`../src/assets/common/${item}.svg`" :alt="item" />
 					<span>{{ item }}</span>
 				</li>
@@ -31,7 +31,7 @@
 
   // 页面跳转
   const toUrl = (url:string) => {
-    router.push(url)
+    router.push({name: url})
   }
 	
 </script>
