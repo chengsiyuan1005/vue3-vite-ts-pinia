@@ -5,17 +5,23 @@
 		<div id="myEChartsBand"></div>
 		<div id="myEChartsAniLine"></div>
 		<div id="myEChartsCustomPie"></div>
-    <div id="myEChartsBarToMap"></div>
+		<!-- <div id="myEChartsBarToMap"></div> -->
+		<div id="myEChartsMap"></div>
+		<div id="Map1"></div>
 	</div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 	import { ref, onMounted } from 'vue';
 	import { cellVolHis, cellTempHis } from '@/api/charts';
+	import china from '@/assets/mapJson/china.json';
+	import preBusLines from '@/assets/mapJson/line-bus.json';
+	import { randomData } from '@/utils/tools';
+	import axios from 'axios';
 
 	const eCharts = ref(getCurrentInstance()?.appContext.config.globalProperties.$echarts);
 
-	const timer1 = ref(0); // charts 刷新 
+	const timer1 = ref(0); // charts 刷新
 
 	onMounted(() => {
 		console.log('this is charts', eCharts.value);
@@ -24,6 +30,8 @@
 		showBandLineCharts();
 		showAniLineCharts();
 		showCustomPieCharts();
+		showMapCharts();
+		showMap1();
 	});
 
 	onBeforeUnmount(() => {
@@ -210,7 +218,7 @@
 		const myAniLineECharts = eCharts.value.init(document.getElementById('myEChartsAniLine'), null, {
 			renderer: 'canvas',
 		});
-		const data: number[] = [];
+		const data = [];
 		for (let i = 0; i < 5; ++i) {
 			data.push(Math.round(Math.random() * 200));
 		}
@@ -345,22 +353,227 @@
 		myAniLineECharts.setOption(optionCustomPie);
 	};
 
-  const showBarToMapCharts = () => {
-    const myBarToMapECharts = eCharts.value.init(document.getElementById('myEChartsBarToMap'))
+	const showMapCharts = () => {
+		const myMapECharts = eCharts.value.init(document.getElementById('myEChartsMap'));
+		// 注册当前使用地图名
+		eCharts.value.registerMap('ChinaMap', china);
+		// 移动map
 
-    // 移动map
-    
-    
-    const optionBarToMap = {
+		const optionMap = {
+			tooltip: {
+				formatter: function (params) {
+					console.log(params);
+					return [
+						params.name + ':',
+						'xxxxxxxxxxxxxxxx',
+						'xxxxxxxxxxxxxxxx',
+						'xxxxxxxxxxxxxxxx',
+					].join('<br>');
+				},
+			},
+			geo: {
+				//地理坐标组件
+				type: 'map',
+				map: 'ChinaMap',
+				roam: true, //开启平移
+				zoom: 2,
+				tooltip: {
+					show: true,
+					confine: true,
+					formatter: function (params) {
+						return [
+							'This is the introduction:',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+							'xxxxxxxxxxxxxxxxxxxxx',
+						].join('<br>');
+					},
+				},
+				// center:[119.306345,26.080429]//福州市
+			},
+		};
+		myMapECharts.setOption(optionMap);
+	};
 
-    }
-    myBarToMapECharts.setOption(optionBarToMap)
-  }
+	// map1
+	const showMap1 = () => {
+		let busLines = [].concat.apply(
+			[],
+			preBusLines.map(function (busLine, idx) {
+				let prevPt = [];
+				let points = [];
+				for (let i = 0; i < busLine.length; i += 2) {
+					let pt = [busLine[i], busLine[i + 1]];
+					if (i > 0) {
+						pt = [prevPt[0] + pt[0], prevPt[1] + pt[1]];
+					}
+					prevPt = pt;
+					points.push([pt[0] / 1e4, pt[1] / 1e4]);
+				}
+				return {
+					coords: points,
+				};
+			})
+		);
+		console.log('busLines', busLines);
+
+		const myShowMap1 = eCharts.value.init(document.getElementById('Map1'));
+
+		eCharts.value.registerMap('map1', china);
+
+		myShowMap1.setOption({
+			geo: {
+				map: 'map1',
+				roam: true,
+				zoom: 2,
+			},
+			mapStyle: {
+				styleJson: [
+					{
+						featureType: 'water',
+						elementType: 'all',
+						stylers: {
+							color: '#d1d1d1',
+						},
+					},
+					{
+						featureType: 'land',
+						elementType: 'all',
+						stylers: {
+							color: '#f3f3f3',
+						},
+					},
+					{
+						featureType: 'railway',
+						elementType: 'all',
+						stylers: {
+							visibility: 'off',
+						},
+					},
+					{
+						featureType: 'highway',
+						elementType: 'all',
+						stylers: {
+							color: '#fdfdfd',
+						},
+					},
+					{
+						featureType: 'highway',
+						elementType: 'labels',
+						stylers: {
+							visibility: 'off',
+						},
+					},
+					{
+						featureType: 'arterial',
+						elementType: 'geometry',
+						stylers: {
+							color: '#fefefe',
+						},
+					},
+					{
+						featureType: 'arterial',
+						elementType: 'geometry.fill',
+						stylers: {
+							color: '#fefefe',
+						},
+					},
+					{
+						featureType: 'poi',
+						elementType: 'all',
+						stylers: {
+							visibility: 'off',
+						},
+					},
+					{
+						featureType: 'green',
+						elementType: 'all',
+						stylers: {
+							visibility: 'off',
+						},
+					},
+					{
+						featureType: 'subway',
+						elementType: 'all',
+						stylers: {
+							visibility: 'off',
+						},
+					},
+					{
+						featureType: 'manmade',
+						elementType: 'all',
+						stylers: {
+							color: '#d1d1d1',
+						},
+					},
+					{
+						featureType: 'local',
+						elementType: 'all',
+						stylers: {
+							color: '#d1d1d1',
+						},
+					},
+					{
+						featureType: 'arterial',
+						elementType: 'labels',
+						stylers: {
+							visibility: 'off',
+						},
+					},
+					{
+						featureType: 'boundary',
+						elementType: 'all',
+						stylers: {
+							color: '#fefefe',
+						},
+					},
+					{
+						featureType: 'building',
+						elementType: 'all',
+						stylers: {
+							color: '#d1d1d1',
+						},
+					},
+					{
+						featureType: 'label',
+						elementType: 'labels.text.fill',
+						stylers: {
+							color: '#999999',
+						},
+					},
+				],
+			},
+			series: [
+        {
+          type: 'lines',
+          coordinateSystem: 'amap',
+          polyline: true,
+          data: busLines,
+          silent: true,
+          lineStyle: {
+            color: 'rgb(200, 35, 45)',
+            opacity: 0.2,
+            width: 1
+          },
+          progressiveThreshold: 500,
+          progressive: 200
+        }
+      ]
+		});
+	};
 </script>
 
 <style lang="scss" scoped>
 	.charts {
 		display: flex;
+		flex-flow: wrap;
 
 		div {
 			width: 500px;
