@@ -7,12 +7,15 @@
 
 <script setup>
 	import AMapLoader from '@amap/amap-jsapi-loader';
-	import { reactive } from 'vue-demi';
+	import { reactive } from 'vue';
+	import useMousePosition from '@/hooks/useMousePosition'
 
 	const state = reactive({
 		path: [],
 		current_position: [],
 	});
+
+	const {x, y} = useMousePosition()
 
   onMounted(() => {
     initMap();

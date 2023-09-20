@@ -6,7 +6,7 @@
 			</div>
 			<ul class="main-page">
 				<li class="list-one" v-for="item in pageList" :key="item" @click="toUrl(item)">
-					<img :src="`../src/assets/common/${item}.svg`" :alt="item" />
+					<img :src="`../src/assets/menuList/${item}.svg`" :alt="item" />
 					<span>{{ item }}</span>
 				</li>
 			</ul>
@@ -27,7 +27,7 @@
   const router = useRouter()
 
   // 页面list
-	const pageList = ref(['home', 'charts', 'mine', 'sit']);
+	const pageList = ref(['home', 'charts', 'mine', 'aSit', 'bSit', 'more']);
 
   // 页面跳转
   const toUrl = (url:string) => {

@@ -35,9 +35,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/Home/charts.vue')
       },
       {
-        path: 'sit',
-        name: 'sit',
+        path: 'aSit',
+        name: 'aSit',
         component: () => import('../views/Home/sit.vue')
+      },
+      {
+        path: 'bSit',
+        name: 'bSit',
+        component: () => import('../views/Home/baiduSit.vue')
       },
       {
         path: 'more',
